@@ -1,5 +1,4 @@
 "use client"
-import Image from 'next/image';
 
 import { useState, Fragment } from "react"
 import { Dialog, Transition, Tab, Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
@@ -15,11 +14,11 @@ import {
   ChevronUpIcon,
   ChevronDownIcon as ChevronDownArrowIcon,
 } from "@heroicons/react/24/outline"
+import Image from "next/image"
 
 interface NewProductModalProps {
   isOpen: boolean
   onClose: () => void
-  darkMode?: boolean
   onSave?: (productData: {
     id?: string
     name: string
@@ -44,7 +43,7 @@ interface NewProductModalProps {
   }
 }
 
-export default function NewProductModal({ isOpen, onClose, darkMode = false, onSave }: NewProductModalProps) {
+export default function NewProductModal({ isOpen, onClose, onSave }: NewProductModalProps) {
   const [selectedTab, setSelectedTab] = useState(0)
   const [productName, setProductName] = useState("© Novoneyra Text Patch T-Shirt")
   const [description, setDescription] = useState("")
@@ -122,16 +121,12 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel
-              className={`w-[85%] max-w-sm transform rounded-xl p-0 text-left align-middle shadow-xl transition-all ${
-                darkMode ? "bg-gray-800" : "bg-white"
-              }`}
-            >
+            <Dialog.Panel className="w-[85%] max-w-sm transform rounded-xl p-0 text-left align-middle shadow-xl transition-all bg-white">
               <Tab.Group selectedIndex={selectedTab} onChange={setSelectedTab}>
                 {({ selectedIndex }) => (
                   <>
                     {/* Modal Header with Tabs */}
-                    <div className={`border-b ${darkMode ? "border-gray-700" : "border-gray-200"}`}>
+                    <div className="border-b border-gray-200">
                       <Tab.List className="flex space-x-1">
                         {tabs.map((tab) => (
                           <Tab
@@ -139,12 +134,8 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
                             className={({ selected }) =>
                               `w-full py-2 px-3 text-xs font-medium leading-4 transition-colors duration-200 focus:outline-none ${
                                 selected
-                                  ? darkMode
-                                    ? "text-blue-400 border-b-2 border-blue-400 bg-gray-700"
-                                    : "text-blue-600 border-b-2 border-blue-600 bg-blue-50"
-                                  : darkMode
-                                    ? "text-gray-400 hover:text-gray-200 hover:bg-gray-700"
-                                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                                  ? "text-blue-600 border-b-2 border-blue-600 bg-blue-50"
+                                  : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
                               }`
                             }
                           >
@@ -160,83 +151,44 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
                         {/* Information Tab */}
                         <Tab.Panel className="space-y-3">
                           <div>
-                            <h3 className={`text-base font-medium mb-3 ${darkMode ? "text-white" : "text-gray-900"}`}>
-                              Information
-                            </h3>
+                            <h3 className="text-base font-medium mb-3 text-gray-900">Information</h3>
 
                             {/* Product Name */}
                             <div className="mb-3">
-                              <label
-                                className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                              >
-                                Product Name
-                              </label>
+                              <label className="block text-xs font-medium mb-1 text-gray-700">Product Name</label>
                               <input
                                 type="text"
                                 value={productName}
                                 onChange={(e) => setProductName(e.target.value)}
-                                className={`w-full px-2 py-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 ${
-                                  darkMode
-                                    ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                                    : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
-                                }`}
+                                className="w-full px-2 py-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white border-gray-300 text-gray-900 placeholder-gray-500"
                               />
                             </div>
 
                             {/* Description */}
                             <div className="mb-3">
-                              <label
-                                className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                              >
-                                DESCRIPTION
-                              </label>
-                              <div
-                                className={`border rounded-md ${darkMode ? "border-gray-600 bg-gray-700" : "border-gray-300 bg-white"}`}
-                              >
-                                <div
-                                  className={`flex items-center space-x-1 p-1 border-b ${darkMode ? "border-gray-600" : "border-gray-200"}`}
-                                >
-                                  <button
-                                    type="button"
-                                    className={`p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${darkMode ? "text-gray-400" : "text-gray-600"}`}
-                                  >
+                              <label className="block text-xs font-medium mb-1 text-gray-700">DESCRIPTION</label>
+                              <div className="border rounded-md border-gray-300 bg-white">
+                                <div className="flex items-center space-x-1 p-1 border-b border-gray-200">
+                                  <button type="button" className="p-1 rounded hover:bg-gray-100 text-gray-600">
                                     <span className="font-bold text-xs">H</span>
                                   </button>
-                                  <button
-                                    type="button"
-                                    className={`p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${darkMode ? "text-gray-400" : "text-gray-600"}`}
-                                  >
+                                  <button type="button" className="p-1 rounded hover:bg-gray-100 text-gray-600">
                                     <span className="font-bold text-xs">B</span>
                                   </button>
-                                  <button
-                                    type="button"
-                                    className={`p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${darkMode ? "text-gray-400" : "text-gray-600"}`}
-                                  >
+                                  <button type="button" className="p-1 rounded hover:bg-gray-100 text-gray-600">
                                     <span className="italic text-xs">I</span>
                                   </button>
-                                  <button
-                                    type="button"
-                                    className={`p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${darkMode ? "text-gray-400" : "text-gray-600"}`}
-                                  >
+                                  <button type="button" className="p-1 rounded hover:bg-gray-100 text-gray-600">
                                     <span className="underline text-xs">U</span>
                                   </button>
-                                  <div className={`w-px h-4 ${darkMode ? "bg-gray-600" : "bg-gray-300"}`} />
-                                  <button
-                                    type="button"
-                                    className={`p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${darkMode ? "text-gray-400" : "text-gray-600"}`}
-                                  >
+                                  <div className="w-px h-4 bg-gray-300" />
+                                  <button type="button" className="p-1 rounded hover:bg-gray-100 text-gray-600">
                                     <Bars3BottomLeftIcon className="h-3 w-3" />
                                   </button>
-                                  <button
-                                    type="button"
-                                    className={`p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${darkMode ? "text-gray-400" : "text-gray-600"}`}
-                                  >
+                                  <button type="button" className="p-1 rounded hover:bg-gray-100 text-gray-600">
                                     <Bars3Icon className="h-3 w-3" />
                                   </button>
-                                  <button
-                                    type="button"
-                                    className={`p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${darkMode ? "text-gray-400" : "text-gray-600"}`}
-                                  >
+                                  <button type="button" className="p-1 rounded hover:bg-gray-100 text-gray-600">
                                     <Bars3BottomRightIcon className="h-3 w-3" />
                                   </button>
                                 </div>
@@ -245,40 +197,28 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
                                   onChange={(e) => setDescription(e.target.value)}
                                   placeholder="Type something"
                                   rows={3}
-                                  className={`w-full px-2 py-1 text-sm border-0 focus:outline-none resize-none rounded-b-md ${
-                                    darkMode
-                                      ? "bg-gray-700 text-white placeholder-gray-400"
-                                      : "bg-white text-gray-900 placeholder-gray-500"
-                                  }`}
+                                  className="w-full px-2 py-1 text-sm border-0 focus:outline-none resize-none rounded-b-md bg-white text-gray-900 placeholder-gray-500"
                                 />
                               </div>
                             </div>
 
                             {/* Brand */}
                             <div className="mb-3">
-                              <label
-                                className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                              >
-                                Brand
-                              </label>
+                              <label className="block text-xs font-medium mb-1 text-gray-700">Brand</label>
                               <Listbox value={selectedBrand} onChange={setSelectedBrand}>
                                 <div className="relative">
-                                  <ListboxButton
-                                    className={`relative w-full cursor-pointer rounded-md py-1 pl-2 pr-8 text-sm text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 ${darkMode ? "bg-gray-700 text-white ring-gray-600" : "bg-white text-gray-900 ring-gray-300"}`}
-                                  >
+                                  <ListboxButton className="relative w-full cursor-pointer rounded-md py-1 pl-2 pr-8 text-sm text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 bg-white text-gray-900 ring-gray-300">
                                     <span className="block truncate">{selectedBrand}</span>
                                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                       <ChevronDownIcon className="h-4 w-4 text-gray-400" aria-hidden="true" />
                                     </span>
                                   </ListboxButton>
-                                  <ListboxOptions
-                                    className={`absolute z-10 mt-1 max-h-40 w-full overflow-auto rounded-md py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${darkMode ? "bg-gray-700" : "bg-white"}`}
-                                  >
+                                  <ListboxOptions className="absolute z-10 mt-1 max-h-40 w-full overflow-auto rounded-md py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-white">
                                     {brands.map((brand) => (
                                       <ListboxOption
                                         key={brand}
                                         value={brand}
-                                        className={`relative cursor-pointer select-none py-1 pl-2 pr-8 text-sm transition-colors duration-200 ${darkMode ? "text-gray-300 hover:bg-gray-600 hover:text-white" : "text-gray-900 hover:bg-gray-100"}`}
+                                        className="relative cursor-pointer select-none py-1 pl-2 pr-8 text-sm transition-colors duration-200 text-gray-900 hover:bg-gray-100"
                                       >
                                         <span className="block truncate">{brand}</span>
                                       </ListboxOption>
@@ -290,29 +230,21 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
 
                             {/* Category */}
                             <div className="mb-3">
-                              <label
-                                className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                              >
-                                Category
-                              </label>
+                              <label className="block text-xs font-medium mb-1 text-gray-700">Category</label>
                               <Listbox value={selectedCategory} onChange={setSelectedCategory}>
                                 <div className="relative">
-                                  <ListboxButton
-                                    className={`relative w-full cursor-pointer rounded-md py-1 pl-2 pr-8 text-sm text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 ${darkMode ? "bg-gray-700 text-white ring-gray-600" : "bg-white text-gray-900 ring-gray-300"}`}
-                                  >
+                                  <ListboxButton className="relative w-full cursor-pointer rounded-md py-1 pl-2 pr-8 text-sm text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 bg-white text-gray-900 ring-gray-300">
                                     <span className="block truncate">{selectedCategory}</span>
                                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                       <ChevronDownIcon className="h-4 w-4 text-gray-400" aria-hidden="true" />
                                     </span>
                                   </ListboxButton>
-                                  <ListboxOptions
-                                    className={`absolute z-10 mt-1 max-h-40 w-full overflow-auto rounded-md py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${darkMode ? "bg-gray-700" : "bg-white"}`}
-                                  >
+                                  <ListboxOptions className="absolute z-10 mt-1 max-h-40 w-full overflow-auto rounded-md py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-white">
                                     {categories.map((category) => (
                                       <ListboxOption
                                         key={category}
                                         value={category}
-                                        className={`relative cursor-pointer select-none py-1 pl-2 pr-8 text-sm transition-colors duration-200 ${darkMode ? "text-gray-300 hover:bg-gray-600 hover:text-white" : "text-gray-900 hover:bg-gray-100"}`}
+                                        className="relative cursor-pointer select-none py-1 pl-2 pr-8 text-sm transition-colors duration-200 text-gray-900 hover:bg-gray-100"
                                       >
                                         <span className="block truncate">{category}</span>
                                       </ListboxOption>
@@ -324,22 +256,18 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
 
                             {/* Tags */}
                             <div className="mb-3">
-                              <label
-                                className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                              >
-                                TAGS
-                              </label>
+                              <label className="block text-xs font-medium mb-1 text-gray-700">TAGS</label>
                               <div className="flex flex-wrap gap-1">
                                 {tags.map((tag) => (
                                   <span
                                     key={tag}
-                                    className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs ${darkMode ? "bg-gray-700 text-gray-300 border border-gray-600" : "bg-gray-100 text-gray-700 border border-gray-200"}`}
+                                    className="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-gray-100 text-gray-700 border border-gray-200"
                                   >
                                     {tag}
                                     <button
                                       type="button"
                                       onClick={() => removeTag(tag)}
-                                      className={`ml-1 hover:text-red-500 transition-colors duration-200 ${darkMode ? "text-gray-400" : "text-gray-500"}`}
+                                      className="ml-1 hover:text-red-500 transition-colors duration-200 text-gray-500"
                                     >
                                       <XMarkIcon className="h-2 w-2" />
                                     </button>
@@ -353,18 +281,12 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
                         {/* Images Tab */}
                         <Tab.Panel className="space-y-3">
                           <div>
-                            <h3 className={`text-base font-medium mb-3 ${darkMode ? "text-white" : "text-gray-900"}`}>
-                              Images
-                            </h3>
+                            <h3 className="text-base font-medium mb-3 text-gray-900">Images</h3>
 
                             {/* Upload Area */}
-                            <div
-                              className={`border-2 border-dashed rounded-lg p-6 text-center mb-4 ${darkMode ? "border-gray-600 bg-gray-700" : "border-gray-300 bg-gray-50"}`}
-                            >
-                              <CloudArrowUpIcon
-                                className={`mx-auto h-8 w-8 mb-2 ${darkMode ? "text-gray-400" : "text-gray-400"}`}
-                              />
-                              <p className={`text-xs ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+                            <div className="border-2 border-dashed rounded-lg p-6 text-center mb-4 border-gray-300 bg-gray-50">
+                              <CloudArrowUpIcon className="mx-auto h-8 w-8 mb-2 text-gray-400" />
+                              <p className="text-xs text-gray-500">
                                 Drag and Drop or <span className="text-blue-600 cursor-pointer">Browse</span> to upload
                               </p>
                             </div>
@@ -381,30 +303,24 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
                               {images.map((image) => (
                                 <div
                                   key={image.id}
-                                  className={`grid grid-cols-4 gap-2 items-center py-2 border-b ${darkMode ? "border-gray-700" : "border-gray-200"}`}
+                                  className="grid grid-cols-4 gap-2 items-center py-2 border-b border-gray-200"
                                 >
                                   <div>
-<Image
-  src={image.src || "/placeholder.svg"}
-  alt=""
-  className="w-8 h-8 rounded object-cover"
-  width={32}
-  height={32}
-/>
+                                    <Image
+                                      src={image.src || "/placeholder.svg"}
+                                      alt=""
+                                      className="w-8 h-8 rounded object-cover"
+                                      width={32}
+                                      height={32}
+                                    />
                                   </div>
-                                  <div className={`text-sm ${darkMode ? "text-gray-300" : "text-gray-900"}`}>
-                                    {image.position}
-                                  </div>
+                                  <div className="text-sm text-gray-900">{image.position}</div>
                                   <div>
                                     <button
                                       type="button"
                                       onClick={() => setCoverImage(image.id)}
                                       className={`w-4 h-4 rounded-full border-2 ${
-                                        image.isCover
-                                          ? "border-blue-600 bg-blue-600"
-                                          : darkMode
-                                            ? "border-gray-500"
-                                            : "border-gray-300"
+                                        image.isCover ? "border-blue-600 bg-blue-600" : "border-gray-300"
                                       }`}
                                     >
                                       {image.isCover && (
@@ -416,13 +332,13 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
                                     <button
                                       type="button"
                                       onClick={() => removeImage(image.id)}
-                                      className={`p-1 rounded hover:bg-red-100 dark:hover:bg-red-900 transition-colors duration-200 ${darkMode ? "text-gray-400 hover:text-red-400" : "text-gray-500 hover:text-red-600"}`}
+                                      className="p-1 rounded hover:bg-red-100 transition-colors duration-200 text-gray-500 hover:text-red-600"
                                     >
                                       <TrashIcon className="h-3 w-3" />
                                     </button>
                                     <button
                                       type="button"
-                                      className={`p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${darkMode ? "text-gray-400" : "text-gray-500"}`}
+                                      className="p-1 rounded hover:bg-gray-100 transition-colors duration-200 text-gray-500"
                                     >
                                       <DragIcon className="h-3 w-3" />
                                     </button>
@@ -436,87 +352,53 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
                         {/* Pricing Tab */}
                         <Tab.Panel className="space-y-3">
                           <div>
-                            <h3 className={`text-base font-medium mb-3 ${darkMode ? "text-white" : "text-gray-900"}`}>
-                              Pricing
-                            </h3>
+                            <h3 className="text-base font-medium mb-3 text-gray-900">Pricing</h3>
 
                             {/* Tax Excluded Price */}
                             <div className="mb-3">
-                              <label
-                                className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                              >
-                                Tax Excluded Price
-                              </label>
+                              <label className="block text-xs font-medium mb-1 text-gray-700">Tax Excluded Price</label>
                               <div className="relative">
-                                <span
-                                  className={`absolute left-2 top-1 text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}
-                                >
-                                  $
-                                </span>
+                                <span className="absolute left-2 top-1 text-sm text-gray-500">$</span>
                                 <input
                                   type="text"
                                   value={taxExcludedPrice}
                                   onChange={(e) => setTaxExcludedPrice(e.target.value)}
-                                  className={`w-full pl-6 pr-2 py-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 ${
-                                    darkMode
-                                      ? "bg-gray-700 border-gray-600 text-white"
-                                      : "bg-white border-gray-300 text-gray-900"
-                                  }`}
+                                  className="w-full pl-6 pr-2 py-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white border-gray-300 text-gray-900"
                                 />
                               </div>
                             </div>
 
                             {/* Tax Included Price */}
                             <div className="mb-3">
-                              <label
-                                className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                              >
-                                Tax Included Price
-                              </label>
+                              <label className="block text-xs font-medium mb-1 text-gray-700">Tax Included Price</label>
                               <div className="relative">
-                                <span
-                                  className={`absolute left-2 top-1 text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}
-                                >
-                                  $
-                                </span>
+                                <span className="absolute left-2 top-1 text-sm text-gray-500">$</span>
                                 <input
                                   type="text"
                                   value={taxIncludedPrice}
                                   onChange={(e) => setTaxIncludedPrice(e.target.value)}
-                                  className={`w-full pl-6 pr-2 py-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 ${
-                                    darkMode
-                                      ? "bg-gray-700 border-gray-600 text-white"
-                                      : "bg-white border-gray-300 text-gray-900"
-                                  }`}
+                                  className="w-full pl-6 pr-2 py-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white border-gray-300 text-gray-900"
                                 />
                               </div>
                             </div>
 
                             {/* Tax Rule */}
                             <div className="mb-3">
-                              <label
-                                className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                              >
-                                Tax Rule
-                              </label>
+                              <label className="block text-xs font-medium mb-1 text-gray-700">Tax Rule</label>
                               <Listbox value={selectedTaxRule} onChange={setSelectedTaxRule}>
                                 <div className="relative">
-                                  <ListboxButton
-                                    className={`relative w-full cursor-pointer rounded-md py-1 pl-2 pr-8 text-sm text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 ${darkMode ? "bg-gray-700 text-white ring-gray-600" : "bg-white text-gray-900 ring-gray-300"}`}
-                                  >
+                                  <ListboxButton className="relative w-full cursor-pointer rounded-md py-1 pl-2 pr-8 text-sm text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 bg-white text-gray-900 ring-gray-300">
                                     <span className="block truncate">{selectedTaxRule}</span>
                                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                       <ChevronDownIcon className="h-4 w-4 text-gray-400" aria-hidden="true" />
                                     </span>
                                   </ListboxButton>
-                                  <ListboxOptions
-                                    className={`absolute z-10 mt-1 max-h-40 w-full overflow-auto rounded-md py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${darkMode ? "bg-gray-700" : "bg-white"}`}
-                                  >
+                                  <ListboxOptions className="absolute z-10 mt-1 max-h-40 w-full overflow-auto rounded-md py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-white">
                                     {taxRules.map((rule) => (
                                       <ListboxOption
                                         key={rule}
                                         value={rule}
-                                        className={`relative cursor-pointer select-none py-1 pl-2 pr-8 text-sm transition-colors duration-200 ${darkMode ? "text-gray-300 hover:bg-gray-600 hover:text-white" : "text-gray-900 hover:bg-gray-100"}`}
+                                        className="relative cursor-pointer select-none py-1 pl-2 pr-8 text-sm transition-colors duration-200 text-gray-900 hover:bg-gray-100"
                                       >
                                         <span className="block truncate">{rule}</span>
                                       </ListboxOption>
@@ -529,53 +411,33 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
                             {/* Unit Price and Per */}
                             <div className="grid grid-cols-2 gap-2 mb-3">
                               <div>
-                                <label
-                                  className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                                >
-                                  Unit Price
-                                </label>
+                                <label className="block text-xs font-medium mb-1 text-gray-700">Unit Price</label>
                                 <div className="relative">
-                                  <span
-                                    className={`absolute left-2 top-1 text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}
-                                  >
-                                    $
-                                  </span>
+                                  <span className="absolute left-2 top-1 text-sm text-gray-500">$</span>
                                   <input
                                     type="text"
                                     value={unitPrice}
                                     onChange={(e) => setUnitPrice(e.target.value)}
-                                    className={`w-full pl-6 pr-2 py-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 ${
-                                      darkMode
-                                        ? "bg-gray-700 border-gray-600 text-white"
-                                        : "bg-white border-gray-300 text-gray-900"
-                                    }`}
+                                    className="w-full pl-6 pr-2 py-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white border-gray-300 text-gray-900"
                                   />
                                 </div>
                               </div>
                               <div>
-                                <label
-                                  className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                                >
-                                  Per
-                                </label>
+                                <label className="block text-xs font-medium mb-1 text-gray-700">Per</label>
                                 <Listbox value={selectedPer} onChange={setSelectedPer}>
                                   <div className="relative">
-                                    <ListboxButton
-                                      className={`relative w-full cursor-pointer rounded-md py-1 pl-2 pr-8 text-sm text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 ${darkMode ? "bg-gray-700 text-white ring-gray-600" : "bg-white text-gray-900 ring-gray-300"}`}
-                                    >
+                                    <ListboxButton className="relative w-full cursor-pointer rounded-md py-1 pl-2 pr-8 text-sm text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 bg-white text-gray-900 ring-gray-300">
                                       <span className="block truncate">{selectedPer}</span>
                                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                         <ChevronDownIcon className="h-4 w-4 text-gray-400" aria-hidden="true" />
                                       </span>
                                     </ListboxButton>
-                                    <ListboxOptions
-                                      className={`absolute z-10 mt-1 max-h-40 w-full overflow-auto rounded-md py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${darkMode ? "bg-gray-700" : "bg-white"}`}
-                                    >
+                                    <ListboxOptions className="absolute z-10 mt-1 max-h-40 w-full overflow-auto rounded-md py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-white">
                                       {perOptions.map((option) => (
                                         <ListboxOption
                                           key={option}
                                           value={option}
-                                          className={`relative cursor-pointer select-none py-1 pl-2 pr-8 text-sm transition-colors duration-200 ${darkMode ? "text-gray-300 hover:bg-gray-600 hover:text-white" : "text-gray-900 hover:bg-gray-100"}`}
+                                          className="relative cursor-pointer select-none py-1 pl-2 pr-8 text-sm transition-colors duration-200 text-gray-900 hover:bg-gray-100"
                                         >
                                           <span className="block truncate">{option}</span>
                                         </ListboxOption>
@@ -591,58 +453,40 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
                         {/* Inventory Tab */}
                         <Tab.Panel className="space-y-3">
                           <div>
-                            <h3 className={`text-base font-medium mb-3 ${darkMode ? "text-white" : "text-gray-900"}`}>
-                              Inventory
-                            </h3>
+                            <h3 className="text-base font-medium mb-3 text-gray-900">Inventory</h3>
 
                             {/* SKU and Quantity */}
                             <div className="grid grid-cols-2 gap-4 mb-3">
                               <div>
-                                <label
-                                  className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                                >
-                                  SKU
-                                </label>
+                                <label className="block text-xs font-medium mb-1 text-gray-700">SKU</label>
                                 <input
                                   type="text"
                                   value={sku}
                                   onChange={(e) => setSku(e.target.value)}
-                                  className={`w-full px-2 py-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 ${
-                                    darkMode
-                                      ? "bg-gray-700 border-gray-600 text-white"
-                                      : "bg-white border-gray-300 text-gray-900"
-                                  }`}
+                                  className="w-full px-2 py-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white border-gray-300 text-gray-900"
                                 />
                               </div>
                               <div>
-                                <label
-                                  className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                                >
-                                  Quantity
-                                </label>
+                                <label className="block text-xs font-medium mb-1 text-gray-700">Quantity</label>
                                 <div className="relative">
                                   <input
                                     type="number"
                                     value={quantity}
                                     onChange={(e) => setQuantity(Number.parseInt(e.target.value) || 0)}
-                                    className={`w-full px-2 py-1 pr-8 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 ${
-                                      darkMode
-                                        ? "bg-gray-700 border-gray-600 text-white"
-                                        : "bg-white border-gray-300 text-gray-900"
-                                    }`}
+                                    className="w-full px-2 py-1 pr-8 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white border-gray-300 text-gray-900"
                                   />
                                   <div className="absolute right-1 top-0 flex flex-col">
                                     <button
                                       type="button"
                                       onClick={incrementQuantity}
-                                      className={`p-0.5 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${darkMode ? "text-gray-400" : "text-gray-500"}`}
+                                      className="p-0.5 hover:bg-gray-100 transition-colors duration-200 text-gray-500"
                                     >
                                       <ChevronUpIcon className="h-2 w-2" />
                                     </button>
                                     <button
                                       type="button"
                                       onClick={decrementQuantity}
-                                      className={`p-0.5 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${darkMode ? "text-gray-400" : "text-gray-500"}`}
+                                      className="p-0.5 hover:bg-gray-100 transition-colors duration-200 text-gray-500"
                                     >
                                       <ChevronDownArrowIcon className="h-2 w-2" />
                                     </button>
@@ -656,109 +500,59 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
                         {/* Shipping Tab */}
                         <Tab.Panel className="space-y-3">
                           <div>
-                            <h3 className={`text-base font-medium mb-3 ${darkMode ? "text-white" : "text-gray-900"}`}>
-                              Shipping
-                            </h3>
+                            <h3 className="text-base font-medium mb-3 text-gray-900">Shipping</h3>
 
                             {/* Dimensions */}
                             <div className="grid grid-cols-2 gap-2 mb-3">
                               <div>
-                                <label
-                                  className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                                >
-                                  Width
-                                </label>
+                                <label className="block text-xs font-medium mb-1 text-gray-700">Width</label>
                                 <div className="relative">
                                   <input
                                     type="text"
                                     value={width}
                                     onChange={(e) => setWidth(e.target.value)}
-                                    className={`w-full px-2 py-1 pr-8 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 ${
-                                      darkMode
-                                        ? "bg-gray-700 border-gray-600 text-white"
-                                        : "bg-white border-gray-300 text-gray-900"
-                                    }`}
+                                    className="w-full px-2 py-1 pr-8 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white border-gray-300 text-gray-900"
                                   />
-                                  <span
-                                    className={`absolute right-2 top-1 text-xs ${darkMode ? "text-gray-400" : "text-gray-500"}`}
-                                  >
-                                    cm
-                                  </span>
+                                  <span className="absolute right-2 top-1 text-xs text-gray-500">cm</span>
                                 </div>
                               </div>
                               <div>
-                                <label
-                                  className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                                >
-                                  Height
-                                </label>
+                                <label className="block text-xs font-medium mb-1 text-gray-700">Height</label>
                                 <div className="relative">
                                   <input
                                     type="text"
                                     value={height}
                                     onChange={(e) => setHeight(e.target.value)}
-                                    className={`w-full px-2 py-1 pr-8 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 ${
-                                      darkMode
-                                        ? "bg-gray-700 border-gray-600 text-white"
-                                        : "bg-white border-gray-300 text-gray-900"
-                                    }`}
+                                    className="w-full px-2 py-1 pr-8 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white border-gray-300 text-gray-900"
                                   />
-                                  <span
-                                    className={`absolute right-2 top-1 text-xs ${darkMode ? "text-gray-400" : "text-gray-500"}`}
-                                  >
-                                    cm
-                                  </span>
+                                  <span className="absolute right-2 top-1 text-xs text-gray-500">cm</span>
                                 </div>
                               </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-2 mb-3">
                               <div>
-                                <label
-                                  className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                                >
-                                  Depth
-                                </label>
+                                <label className="block text-xs font-medium mb-1 text-gray-700">Depth</label>
                                 <div className="relative">
                                   <input
                                     type="text"
                                     value={depth}
                                     onChange={(e) => setDepth(e.target.value)}
-                                    className={`w-full px-2 py-1 pr-8 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 ${
-                                      darkMode
-                                        ? "bg-gray-700 border-gray-600 text-white"
-                                        : "bg-white border-gray-300 text-gray-900"
-                                    }`}
+                                    className="w-full px-2 py-1 pr-8 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white border-gray-300 text-gray-900"
                                   />
-                                  <span
-                                    className={`absolute right-2 top-1 text-xs ${darkMode ? "text-gray-400" : "text-gray-500"}`}
-                                  >
-                                    cm
-                                  </span>
+                                  <span className="absolute right-2 top-1 text-xs text-gray-500">cm</span>
                                 </div>
                               </div>
                               <div>
-                                <label
-                                  className={`block text-xs font-medium mb-1 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                                >
-                                  Weight
-                                </label>
+                                <label className="block text-xs font-medium mb-1 text-gray-700">Weight</label>
                                 <div className="relative">
                                   <input
                                     type="text"
                                     value={weight}
                                     onChange={(e) => setWeight(e.target.value)}
-                                    className={`w-full px-2 py-1 pr-8 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 ${
-                                      darkMode
-                                        ? "bg-gray-700 border-gray-600 text-white"
-                                        : "bg-white border-gray-300 text-gray-900"
-                                    }`}
+                                    className="w-full px-2 py-1 pr-8 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white border-gray-300 text-gray-900"
                                   />
-                                  <span
-                                    className={`absolute right-2 top-1 text-xs ${darkMode ? "text-gray-400" : "text-gray-500"}`}
-                                  >
-                                    kg
-                                  </span>
+                                  <span className="absolute right-2 top-1 text-xs text-gray-500">kg</span>
                                 </div>
                               </div>
                             </div>
@@ -768,17 +562,11 @@ export default function NewProductModal({ isOpen, onClose, darkMode = false, onS
                     </div>
 
                     {/* Modal Footer */}
-                    <div
-                      className={`flex items-center justify-end space-x-2 px-3 py-2 border-t ${darkMode ? "border-gray-700 bg-gray-750" : "border-gray-200 bg-gray-50"}`}
-                    >
+                    <div className="flex items-center justify-end space-x-2 px-3 py-2 border-t border-gray-200 bg-gray-50">
                       <button
                         type="button"
                         onClick={onClose}
-                        className={`px-3 py-1 text-xs font-medium rounded-md transition-colors duration-200 ${
-                          darkMode
-                            ? "text-gray-300 hover:text-white hover:bg-gray-700 border border-gray-600"
-                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-100 border border-gray-300"
-                        }`}
+                        className="px-3 py-1 text-xs font-medium rounded-md transition-colors duration-200 text-gray-700 hover:text-gray-900 hover:bg-gray-100 border border-gray-300"
                       >
                         Cancel
                       </button>

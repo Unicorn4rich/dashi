@@ -1,5 +1,5 @@
 "use client"
-import Image from 'next/image';
+import Image from "next/image"
 
 import { useState } from "react"
 import { MagnifyingGlassIcon, PlusIcon, EllipsisVerticalIcon, ChevronDownIcon } from "@heroicons/react/24/outline"
@@ -39,11 +39,7 @@ interface Order {
   selected: boolean
 }
 
-interface ProductsTableProps {
-  darkMode?: boolean
-}
-
-export default function ProductsTable({ darkMode = false }: ProductsTableProps) {
+export default function ProductsTable() {
   const [selectedFilter, setSelectedFilter] = useState("All Products")
   const [sortBy, setSortBy] = useState("Default")
   const [searchQuery, setSearchQuery] = useState("")
@@ -292,26 +288,26 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
   const getPaymentBadgeColor = (payment: string) => {
     switch (payment) {
       case "Paid":
-        return darkMode ? "bg-green-900 text-green-300" : "bg-green-100 text-green-800"
+        return "bg-green-100 text-green-800"
       case "Pending":
-        return darkMode ? "bg-yellow-900 text-yellow-300" : "bg-yellow-100 text-yellow-800"
+        return "bg-yellow-100 text-yellow-800"
       case "Failed":
-        return darkMode ? "bg-red-900 text-red-300" : "bg-red-100 text-red-800"
+        return "bg-red-100 text-red-800"
       default:
-        return darkMode ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-800"
+        return "bg-gray-100 text-gray-800"
     }
   }
 
   const getStatusBadgeColor = (status: string) => {
     switch (status) {
       case "Fulfilled":
-        return darkMode ? "bg-green-900 text-green-300" : "bg-green-100 text-green-800"
+        return "bg-green-100 text-green-800"
       case "Unfulfilled":
-        return darkMode ? "bg-orange-900 text-orange-300" : "bg-orange-100 text-orange-800"
+        return "bg-orange-100 text-orange-800"
       case "Cancelled":
-        return darkMode ? "bg-red-900 text-red-300" : "bg-red-100 text-red-800"
+        return "bg-red-100 text-red-800"
       default:
-        return darkMode ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-800"
+        return "bg-gray-100 text-gray-800"
     }
   }
 
@@ -325,41 +321,28 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
   }
 
   return (
-    <div className={`${darkMode ? "bg-gray-900" : "bg-white"} min-h-screen transition-colors duration-200`}>
+    <div className="bg-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Header Controls */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div className="flex items-center space-x-4">
-
             {/* Show Filter */}
             <div className="flex items-center space-x-2 border-none">
-              <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>Show:</span>
+              <span className="text-sm font-medium text-gray-700">Show:</span>
               <Listbox value={selectedFilter} onChange={handleFilterChange}>
                 <div className="relative">
-                  <ListboxButton
-                    className={`relative w-40 cursor-pointer rounded-md py-2 pl-3 pr-10 text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm transition-colors duration-200 ${
-                      darkMode ? "bg-gray-800 text-white ring-gray-600" : "bg-gray-50 text-gray-900 ring-gray-300"
-                    }`}
-                  >
+                  <ListboxButton className="relative w-40 cursor-pointer rounded-md py-2 pl-3 pr-10 text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm transition-colors duration-200 bg-gray-50 text-gray-900 ring-gray-300">
                     <span className="block truncate">{selectedFilter}</span>
                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                       <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                     </span>
                   </ListboxButton>
-                  <ListboxOptions
-                    className={`absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm ${
-                      darkMode ? "bg-gray-800" : "bg-white"
-                    }`}
-                  >
+                  <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm bg-white">
                     {filterOptions.map((option) => (
                       <ListboxOption
                         key={option}
                         value={option}
-                        className={`relative cursor-pointer select-none py-2 pl-3 pr-9 transition-colors duration-200 ${
-                          darkMode
-                            ? "text-gray-300 hover:bg-gray-700 hover:text-white"
-                            : "text-gray-900 hover:bg-gray-100"
-                        }`}
+                        className="relative cursor-pointer select-none py-2 pl-3 pr-9 transition-colors duration-200 text-gray-900 hover:bg-gray-100"
                       >
                         <span className="block truncate">{option}</span>
                       </ListboxOption>
@@ -368,7 +351,6 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                 </div>
               </Listbox>
             </div>
-
           </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
@@ -381,42 +363,41 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
               New Product
             </button>
 
-  <button className="bg-gray-100 p-2 sm:p-3 md:p-4 rounded-2xl w-fit hover:bg-gray-200 transition-colors">
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-  </svg>
-</button>
+            <button className="bg-gray-100 p-2 sm:p-3 md:p-4 rounded-2xl w-fit hover:bg-gray-200 transition-colors">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z"
+                />
+              </svg>
+            </button>
 
             {/* Sort By */}
             <div className="flex items-center space-x-2">
-              <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>Sort by:</span>
+              <span className="text-sm font-medium text-gray-700">Sort by:</span>
 
               <Listbox value={sortBy} onChange={setSortBy}>
                 <div className="relative">
-                  <ListboxButton
-                    className={`relative w-32 cursor-pointer rounded-md py-2 pl-3 pr-10 text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm transition-colors duration-200 ${
-                      darkMode ? "bg-gray-800 text-white ring-gray-600" : "bg-gray-50 text-gray-900 ring-gray-300"
-                    }`}
-                  >
+                  <ListboxButton className="relative w-32 cursor-pointer rounded-md py-2 pl-3 pr-10 text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm transition-colors duration-200 bg-gray-50 text-gray-900 ring-gray-300">
                     <span className="block truncate">{sortBy}</span>
                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                       <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                     </span>
                   </ListboxButton>
-                  <ListboxOptions
-                    className={`absolute right-0 z-10 mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm ${
-                      darkMode ? "bg-gray-800" : "bg-white"
-                    }`}
-                  >
+                  <ListboxOptions className="absolute right-0 z-10 mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm bg-white">
                     {sortOptions.map((option) => (
                       <ListboxOption
                         key={option}
                         value={option}
-                        className={`relative cursor-pointer select-none py-2 pl-3 pr-9 transition-colors duration-200 ${
-                          darkMode
-                            ? "text-gray-300 hover:bg-gray-700 hover:text-white"
-                            : "text-gray-900 hover:bg-gray-100"
-                        }`}
+                        className="relative cursor-pointer select-none py-2 pl-3 pr-9 transition-colors duration-200 text-gray-900 hover:bg-gray-100"
                       >
                         <span className="block truncate">{option}</span>
                       </ListboxOption>
@@ -428,99 +409,71 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
           </div>
         </div>
 
- 
-
         {/* Conditional Content Based on Current View */}
         {currentView === "products" ? (
           /* Products Table */
-          <div
-            className={`shadow px-2 pt-4 bg-amber-200 ring-opacity-5 rounded-lg overflow-hidden ${
-              darkMode ? "bg-gray-800" : "bg-white"
-            }`}
-          >
+          <div className="shadow px-2 pt-4 ring-opacity-5 rounded-lg overflow-hidden bg-white">
+            {/* Search Bar */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-6">
+              <div className="flex-1 relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search by Name, Brand, Variant etc..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="block w-full pl-10 pr-3 py-3 border rounded-full leading-5 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-100 focus:border-blue-100 sm:text-sm transition-colors duration-200 bg-gray-50 border-gray-100 text-gray-900"
+                />
+              </div>
 
-       {/* Search Bar */}
-        <div className="flex flex-col sm:flex-row gap-3 mb-6">
-          <div className="flex-1 relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <MagnifyingGlassIcon className={`h-5 w-5 ${darkMode ? "text-gray-400" : "text-gray-400"}`} />
+              <button className="px-6 py-3 rounded-full text-sm font-medium transition-colors duration-200 border-gray-300 text-gray-700 hover:bg-gray-100 bg-gray-50">
+                Action
+              </button>
             </div>
-            <input
-              type="text"
-              placeholder="Search by Name, Brand, Variant etc..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className={`block w-full pl-10 pr-3 py-3 border rounded-full leading-5 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-100 focus:border-blue-100 sm:text-sm transition-colors duration-200 ${
-                darkMode ? "bg-gray-800 border-gray-100 text-white" : "bg-gray-50 border-gray-100 text-gray-900"
-              }`}
-            />
-          </div>
-
-          <button
-            className={`px-6 py-3 rounded-full text-sm font-medium transition-colors duration-200 ${
-              darkMode
-                ? "border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
-                : "border-gray-300 text-gray-700 hover:bg-gray-100 bg-gray-50"
-            }`}
-          >
-            Action
-          </button>
-
-        </div>
 
             {/* Desktop Table */}
-            <div className="hidden lg:block ">
-              <table className="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
-                <thead className={`${darkMode ? "bg-gray-700" : "bg-gray-50"}`}>
+            <div className="hidden lg:block">
+              <table className="min-w-full divide-y divide-gray-100">
+                <thead className="bg-gray-50">
                   <tr>
                     <th scope="col" className="relative w-12 px-6 sm:w-16 sm:px-8">
                       <span className="sr-only">Select</span>
                     </th>
                     <th
                       scope="col"
-                      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
-                        darkMode ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
                     >
                       Payment Number
                     </th>
                     <th
                       scope="col"
-                      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
-                        darkMode ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
                     >
                       Brand
                     </th>
                     <th
                       scope="col"
-                      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
-                        darkMode ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
                     >
                       #ID
                     </th>
                     <th
                       scope="col"
-                      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
-                        darkMode ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
                     >
                       Stock
                     </th>
                     <th
                       scope="col"
-                      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
-                        darkMode ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
                     >
                       Var
                     </th>
                     <th
                       scope="col"
-                      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
-                        darkMode ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
                     >
                       Price
                     </th>
@@ -529,13 +482,10 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                     </th>
                   </tr>
                 </thead>
-                
-                <tbody className={`divide-y ${darkMode ? "divide-gray-700" : "divide-gray-50"}`}>
+
+                <tbody className="divide-y divide-gray-50">
                   {filteredProducts.map((product) => (
-                    <tr
-                      key={product.id}
-                      className={`${darkMode ? "hover:bg-gray-700" : "hover:bg-gray-50"} transition-colors duration-200`}
-                    >
+                    <tr key={product.id} className="hover:bg-gray-50 transition-colors duration-200">
                       <td className="relative w-12 px-6 sm:w-16 sm:px-8">
                         <input
                           type="checkbox"
@@ -547,70 +497,34 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="h-10 w-10 flex-shrink-0">
-<Image
-  className="h-10 w-10 rounded-md object-cover"
-  src={product.image || "/placeholder.svg"}
-  alt={product.name}
-  width={40}
-  height={40}
-/>
+                            <Image
+                              className="h-10 w-10 rounded-md object-cover"
+                              src={product.image || "/placeholder.svg"}
+                              alt={product.name}
+                              width={40}
+                              height={40}
+                            />
                           </div>
                           <div className="ml-4">
-                            <div className={`text-sm font-medium ${darkMode ? "text-white" : "text-gray-900"}`}>
-                              {product.name}
-                            </div>
+                            <div className="text-sm font-medium text-gray-900">{product.name}</div>
                           </div>
                         </div>
                       </td>
-                      <td
-                        className={`px-6 py-4 whitespace-nowrap text-sm ${darkMode ? "text-gray-300" : "text-gray-500"}`}
-                      >
-                        {product.brand}
-                      </td>
-                      <td
-                        className={`px-6 py-4 whitespace-nowrap text-sm ${darkMode ? "text-gray-300" : "text-gray-500"}`}
-                      >
-                        {product.productId}
-                      </td>
-                      <td
-                        className={`px-6 py-4 whitespace-nowrap text-sm ${darkMode ? "text-gray-300" : "text-gray-500"}`}
-                      >
-                        {product.stock}
-                      </td>
-                      <td
-                        className={`px-6 py-4 whitespace-nowrap text-sm ${darkMode ? "text-gray-300" : "text-gray-500"}`}
-                      >
-                        {product.variants}
-                      </td>
-                      <td
-                        className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${darkMode ? "text-white" : "text-gray-900"}`}
-                      >
-                        {product.price}
-                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.brand}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.productId}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.stock}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.variants}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{product.price}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Menu as="div" className="relative inline-block text-left">
-                          <MenuButton
-                            className={`p-2 rounded-md transition-colors duration-200 ${
-                              darkMode
-                                ? "text-gray-400 hover:text-white hover:bg-gray-600"
-                                : "text-gray-400 hover:text-gray-500 hover:bg-gray-100"
-                            }`}
-                          >
+                          <MenuButton className="p-2 rounded-md transition-colors duration-200 text-gray-400 hover:text-gray-500 hover:bg-gray-100">
                             <EllipsisVerticalIcon className="h-5 w-5" />
                           </MenuButton>
-                          <MenuItems
-                            className={`absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
-                              darkMode ? "bg-gray-800" : "bg-white"
-                            }`}
-                          >
+                          <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-white">
                             <MenuItem>
                               <button
                                 onClick={() => handleEditProduct(product)}
-                                className={`block px-4 py-2 text-sm transition-colors duration-200 ${
-                                  darkMode
-                                    ? "text-gray-300 hover:bg-gray-700 hover:text-white"
-                                    : "text-gray-700 hover:bg-gray-100"
-                                }`}
+                                className="block px-4 py-2 text-sm transition-colors duration-200 text-gray-700 hover:bg-gray-100"
                               >
                                 Edit
                               </button>
@@ -618,11 +532,7 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                             <MenuItem>
                               <button
                                 onClick={() => handleDuplicateProduct(product)}
-                                className={`block px-4 py-2 text-sm transition-colors duration-200 ${
-                                  darkMode
-                                    ? "text-gray-300 hover:bg-gray-700 hover:text-white"
-                                    : "text-gray-700 hover:bg-gray-100"
-                                }`}
+                                className="block px-4 py-2 text-sm transition-colors duration-200 text-gray-700 hover:bg-gray-100"
                               >
                                 Duplicate
                               </button>
@@ -630,11 +540,7 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                             <MenuItem>
                               <button
                                 onClick={() => handleDeleteProduct(product.id)}
-                                className={`block px-4 py-2 text-sm transition-colors duration-200 ${
-                                  darkMode
-                                    ? "text-red-400 hover:bg-gray-700 hover:text-red-300"
-                                    : "text-red-600 hover:bg-gray-100"
-                                }`}
+                                className="block px-4 py-2 text-sm transition-colors duration-200 text-red-600 hover:bg-gray-100"
                               >
                                 Delete
                               </button>
@@ -654,9 +560,7 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
-                    className={`rounded-lg border p-4 transition-colors duration-200 ${
-                      darkMode ? "border-gray-600 bg-gray-700" : "border-gray-200 bg-white"
-                    }`}
+                    className="rounded-lg border p-4 transition-colors duration-200 border-gray-200 bg-white"
                   >
                     <div className="flex items-start space-x-3">
                       <input
@@ -665,46 +569,30 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                         onChange={() => toggleProductSelection(product.id)}
                         className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
-<Image
-  className="h-12 w-12 rounded-md object-cover"
-  src={product.image || "/placeholder.svg"}
-  alt={product.name}
-  width={48}
-  height={48}
-/>
+                      <Image
+                        className="h-12 w-12 rounded-md object-cover"
+                        src={product.image || "/placeholder.svg"}
+                        alt={product.name}
+                        width={48}
+                        height={48}
+                      />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between">
                           <div>
-                            <p className={`text-sm font-medium ${darkMode ? "text-white" : "text-gray-900"}`}>
-                              {product.name}
-                            </p>
-                            <p className={`text-sm ${darkMode ? "text-gray-300" : "text-gray-500"}`}>
+                            <p className="text-sm font-medium text-gray-900">{product.name}</p>
+                            <p className="text-sm text-gray-500">
                               {product.brand} • ID: {product.productId}
                             </p>
                           </div>
                           <Menu as="div" className="relative">
-                            <MenuButton
-                              className={`p-1 rounded-md transition-colors duration-200 ${
-                                darkMode
-                                  ? "text-gray-400 hover:text-white hover:bg-gray-600"
-                                  : "text-gray-400 hover:text-gray-500 hover:bg-gray-100"
-                              }`}
-                            >
+                            <MenuButton className="p-1 rounded-md transition-colors duration-200 text-gray-400 hover:text-gray-500 hover:bg-gray-100">
                               <EllipsisVerticalIcon className="h-5 w-5" />
                             </MenuButton>
-                            <MenuItems
-                              className={`absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
-                                darkMode ? "bg-gray-800" : "bg-white"
-                              }`}
-                            >
+                            <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-white">
                               <MenuItem>
                                 <button
                                   onClick={() => handleEditProduct(product)}
-                                  className={`block px-4 py-2 text-sm transition-colors duration-200 ${
-                                    darkMode
-                                      ? "text-gray-300 hover:bg-gray-700 hover:text-white"
-                                      : "text-gray-700 hover:bg-gray-100"
-                                  }`}
+                                  className="block px-4 py-2 text-sm transition-colors duration-200 text-gray-700 hover:bg-gray-100"
                                 >
                                   Edit
                                 </button>
@@ -712,11 +600,7 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                               <MenuItem>
                                 <button
                                   onClick={() => handleDuplicateProduct(product)}
-                                  className={`block px-4 py-2 text-sm transition-colors duration-200 ${
-                                    darkMode
-                                      ? "text-gray-300 hover:bg-gray-700 hover:text-white"
-                                      : "text-gray-700 hover:bg-gray-100"
-                                  }`}
+                                  className="block px-4 py-2 text-sm transition-colors duration-200 text-gray-700 hover:bg-gray-100"
                                 >
                                   Duplicate
                                 </button>
@@ -724,11 +608,7 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                               <MenuItem>
                                 <button
                                   onClick={() => handleDeleteProduct(product.id)}
-                                  className={`block px-4 py-2 text-sm transition-colors duration-200 ${
-                                    darkMode
-                                      ? "text-red-400 hover:bg-gray-700 hover:text-red-300"
-                                      : "text-red-600 hover:bg-gray-100"
-                                  }`}
+                                  className="block px-4 py-2 text-sm transition-colors duration-200 text-red-600 hover:bg-gray-100"
                                 >
                                   Delete
                                 </button>
@@ -738,16 +618,10 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                         </div>
                         <div className="mt-2 flex items-center justify-between text-sm">
                           <div className="flex space-x-4">
-                            <span className={`${darkMode ? "text-gray-300" : "text-gray-500"}`}>
-                              Stock: {product.stock}
-                            </span>
-                            <span className={`${darkMode ? "text-gray-300" : "text-gray-500"}`}>
-                              Variants: {product.variants}
-                            </span>
+                            <span className="text-gray-500">Stock: {product.stock}</span>
+                            <span className="text-gray-500">Variants: {product.variants}</span>
                           </div>
-                          <span className={`font-medium ${darkMode ? "text-white" : "text-gray-900"}`}>
-                            {product.price}
-                          </span>
+                          <span className="font-medium text-gray-900">{product.price}</span>
                         </div>
                       </div>
                     </div>
@@ -758,64 +632,48 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
           </div>
         ) : (
           /* Orders Table */
-          <div
-            className={`shadow ring-1 ring-black ring-opacity-5 rounded-lg overflow-hidden ${
-              darkMode ? "bg-gray-800" : "bg-white"
-            }`}
-          >
+          <div className="shadow ring-1 ring-black ring-opacity-5 rounded-lg overflow-hidden bg-white">
             {/* Desktop Table */}
             <div className="hidden lg:block">
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className={`${darkMode ? "bg-gray-700" : "bg-gray-50"}`}>
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
                   <tr>
                     <th scope="col" className="relative w-12 px-6 sm:w-16 sm:px-8">
                       <span className="sr-only">Select</span>
                     </th>
                     <th
                       scope="col"
-                      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
-                        darkMode ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
                     >
                       Order
                     </th>
                     <th
                       scope="col"
-                      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
-                        darkMode ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
                     >
                       Date
                     </th>
                     <th
                       scope="col"
-                      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
-                        darkMode ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
                     >
                       Customer
                     </th>
                     <th
                       scope="col"
-                      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
-                        darkMode ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
                     >
                       Payment
                     </th>
                     <th
                       scope="col"
-                      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
-                        darkMode ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
                     >
                       Status
                     </th>
                     <th
                       scope="col"
-                      className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
-                        darkMode ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
                     >
                       Price
                     </th>
@@ -824,12 +682,9 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                     </th>
                   </tr>
                 </thead>
-                <tbody className={`divide-y ${darkMode ? "divide-gray-700" : "divide-gray-200"}`}>
+                <tbody className="divide-y divide-gray-200">
                   {filteredOrders.map((order) => (
-                    <tr
-                      key={order.id}
-                      className={`${darkMode ? "hover:bg-gray-700" : "hover:bg-gray-50"} transition-colors duration-200`}
-                    >
+                    <tr key={order.id} className="hover:bg-gray-50 transition-colors duration-200">
                       <td className="relative w-12 px-6 sm:w-16 sm:px-8">
                         <input
                           type="checkbox"
@@ -840,22 +695,14 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div
-                          className={`text-sm font-medium text-blue-600 ${darkMode ? "text-blue-400" : "text-blue-600"} cursor-pointer hover:underline`}
+                          className="text-sm font-medium text-blue-600 cursor-pointer hover:underline"
                           onClick={() => handleOrderClick(order)}
                         >
                           {order.orderId}
                         </div>
                       </td>
-                      <td
-                        className={`px-6 py-4 whitespace-nowrap text-sm ${darkMode ? "text-gray-300" : "text-gray-500"}`}
-                      >
-                        {order.date}
-                      </td>
-                      <td
-                        className={`px-6 py-4 whitespace-nowrap text-sm ${darkMode ? "text-gray-300" : "text-gray-900"}`}
-                      >
-                        {order.customer}
-                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.date}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.customer}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPaymentBadgeColor(order.payment)}`}
@@ -870,35 +717,17 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                           {order.status}
                         </span>
                       </td>
-                      <td
-                        className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${darkMode ? "text-white" : "text-gray-900"}`}
-                      >
-                        {order.price}
-                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.price}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Menu as="div" className="relative inline-block text-left">
-                          <MenuButton
-                            className={`p-2 rounded-md transition-colors duration-200 ${
-                              darkMode
-                                ? "text-gray-400 hover:text-white hover:bg-gray-600"
-                                : "text-gray-400 hover:text-gray-500 hover:bg-gray-100"
-                            }`}
-                          >
+                          <MenuButton className="p-2 rounded-md transition-colors duration-200 text-gray-400 hover:text-gray-500 hover:bg-gray-100">
                             <EllipsisVerticalIcon className="h-5 w-5" />
                           </MenuButton>
-                          <MenuItems
-                            className={`absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
-                              darkMode ? "bg-gray-800" : "bg-white"
-                            }`}
-                          >
+                          <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-white">
                             <MenuItem>
                               <button
                                 onClick={() => handleOrderClick(order)}
-                                className={`block w-full text-left px-4 py-2 text-sm transition-colors duration-200 ${
-                                  darkMode
-                                    ? "text-gray-300 hover:bg-gray-700 hover:text-white"
-                                    : "text-gray-700 hover:bg-gray-100"
-                                }`}
+                                className="block w-full text-left px-4 py-2 text-sm transition-colors duration-200 text-gray-700 hover:bg-gray-100"
                               >
                                 View Details
                               </button>
@@ -906,11 +735,7 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                             <MenuItem>
                               <a
                                 href="#"
-                                className={`block px-4 py-2 text-sm transition-colors duration-200 ${
-                                  darkMode
-                                    ? "text-gray-300 hover:bg-gray-700 hover:text-white"
-                                    : "text-gray-700 hover:bg-gray-100"
-                                }`}
+                                className="block px-4 py-2 text-sm transition-colors duration-200 text-gray-700 hover:bg-gray-100"
                               >
                                 Edit Order
                               </a>
@@ -918,11 +743,7 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                             <MenuItem>
                               <a
                                 href="#"
-                                className={`block px-4 py-2 text-sm transition-colors duration-200 ${
-                                  darkMode
-                                    ? "text-red-400 hover:bg-gray-700 hover:text-red-300"
-                                    : "text-red-600 hover:bg-gray-100"
-                                }`}
+                                className="block px-4 py-2 text-sm transition-colors duration-200 text-red-600 hover:bg-gray-100"
                               >
                                 Cancel Order
                               </a>
@@ -942,9 +763,7 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                 {filteredOrders.map((order) => (
                   <div
                     key={order.id}
-                    className={`rounded-lg border p-4 transition-colors duration-200 ${
-                      darkMode ? "border-gray-600 bg-gray-700" : "border-gray-200 bg-white"
-                    }`}
+                    className="rounded-lg border p-4 transition-colors duration-200 border-gray-200 bg-white"
                   >
                     <div className="flex items-start space-x-3">
                       <input
@@ -957,38 +776,24 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                         <div className="flex items-start justify-between">
                           <div>
                             <p
-                              className={`text-sm font-medium text-blue-600 ${darkMode ? "text-blue-400" : "text-blue-600"} cursor-pointer hover:underline`}
+                              className="text-sm font-medium text-blue-600 cursor-pointer hover:underline"
                               onClick={() => handleOrderClick(order)}
                             >
                               {order.orderId}
                             </p>
-                            <p className={`text-sm ${darkMode ? "text-gray-300" : "text-gray-500"}`}>
+                            <p className="text-sm text-gray-500">
                               {order.date} • {order.customer}
                             </p>
                           </div>
                           <Menu as="div" className="relative">
-                            <MenuButton
-                              className={`p-1 rounded-md transition-colors duration-200 ${
-                                darkMode
-                                  ? "text-gray-400 hover:text-white hover:bg-gray-600"
-                                  : "text-gray-400 hover:text-gray-500 hover:bg-gray-100"
-                              }`}
-                            >
+                            <MenuButton className="p-1 rounded-md transition-colors duration-200 text-gray-400 hover:text-gray-500 hover:bg-gray-100">
                               <EllipsisVerticalIcon className="h-5 w-5" />
                             </MenuButton>
-                            <MenuItems
-                              className={`absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
-                                darkMode ? "bg-gray-800" : "bg-white"
-                              }`}
-                            >
+                            <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-white">
                               <MenuItem>
                                 <button
                                   onClick={() => handleOrderClick(order)}
-                                  className={`block w-full text-left px-4 py-2 text-sm transition-colors duration-200 ${
-                                    darkMode
-                                      ? "text-gray-300 hover:bg-gray-700 hover:text-white"
-                                      : "text-gray-700 hover:bg-gray-100"
-                                  }`}
+                                  className="block w-full text-left px-4 py-2 text-sm transition-colors duration-200 text-gray-700 hover:bg-gray-100"
                                 >
                                   View Details
                                 </button>
@@ -996,11 +801,7 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                               <MenuItem>
                                 <a
                                   href="#"
-                                  className={`block px-4 py-2 text-sm transition-colors duration-200 ${
-                                    darkMode
-                                      ? "text-gray-300 hover:bg-gray-700 hover:text-white"
-                                      : "text-gray-700 hover:bg-gray-100"
-                                  }`}
+                                  className="block px-4 py-2 text-sm transition-colors duration-200 text-gray-700 hover:bg-gray-100"
                                 >
                                   Edit Order
                                 </a>
@@ -1008,11 +809,7 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                               <MenuItem>
                                 <a
                                   href="#"
-                                  className={`block px-4 py-2 text-sm transition-colors duration-200 ${
-                                    darkMode
-                                      ? "text-red-400 hover:bg-gray-700 hover:text-red-300"
-                                      : "text-red-600 hover:bg-gray-100"
-                                  }`}
+                                  className="block px-4 py-2 text-sm transition-colors duration-200 text-red-600 hover:bg-gray-100"
                                 >
                                   Cancel Order
                                 </a>
@@ -1033,9 +830,7 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
                               {order.status}
                             </span>
                           </div>
-                          <span className={`font-medium ${darkMode ? "text-white" : "text-gray-900"}`}>
-                            {order.price}
-                          </span>
+                          <span className="font-medium text-gray-900">{order.price}</span>
                         </div>
                       </div>
                     </div>
@@ -1048,7 +843,7 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
 
         {/* Results Summary */}
         <div className="mt-4 flex items-center justify-between">
-          <p className={`text-sm ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+          <p className="text-sm text-gray-700">
             {currentView === "products"
               ? `Showing ${filteredProducts.length} of ${products.length} products`
               : `Showing ${filteredOrders.length} of ${orders.length} orders`}
@@ -1059,7 +854,6 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
         <NewProductModal
           isOpen={isNewProductModalOpen}
           onClose={() => setIsNewProductModalOpen(false)}
-          darkMode={darkMode}
           onSave={handleSaveProduct}
         />
 
@@ -1069,7 +863,6 @@ export default function ProductsTable({ darkMode = false }: ProductsTableProps) 
             isOpen={isOrderDetailsModalOpen}
             onClose={() => setIsOrderDetailsModalOpen(false)}
             order={selectedOrder}
-            darkMode={darkMode}
           />
         )}
       </div>
